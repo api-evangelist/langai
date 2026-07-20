@@ -1,0 +1,15 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/langai-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'Authenticate your account by including your secret API token in every request
+    as an Authorization: Bearer header. Create a new API token from the Settings section of
+    your Lang.ai instance. Generating a new token invalidates previously issued ones.'
+  sources:
+  - openapi/langai-api-openapi.yml
