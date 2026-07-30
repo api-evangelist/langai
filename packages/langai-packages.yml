@@ -1,0 +1,45 @@
+generated: '2026-07-19'
+method: searched
+source: registry searches 2026-07-19
+packages: []
+summary: >-
+  No first-party Lang.ai client libraries were found. The docs state that "the API
+  libraries convert responses to appropriate language-specific objects", but no such
+  libraries are published or linked anywhere, and none exist under the lang-ai GitHub
+  organization.
+searched:
+- registry: npm
+  query: lang.ai
+  result: >-
+    No first-party package. Matches are unrelated projects (convo-lang, rip-lang,
+    ilo-lang).
+- registry: pypi
+  query: langai
+  result: 404 — no such project.
+- registry: github
+  org: https://github.com/lang-ai
+  result: >-
+    Public repos are internal/utility projects (react-pdfs, react-emails, chatbots2s,
+    simple_lemmatizer, handbook, postman-salesforce-apis, react-tags-input, cromberbus,
+    wire, docs, snowflake-app-samples) — none is a Lang.ai API client library.
+- registry: maven-central
+  result: none found
+- registry: nuget
+  result: none found
+- registry: rubygems
+  result: none found
+- registry: packagist
+  result: none found
+- registry: crates.io
+  result: none found
+- registry: pkg.go.dev
+  result: none found
+reference_implementations:
+- language: python
+  kind: example-snippet
+  official: false
+  url: https://gist.github.com/fjaguero/5cf6721d7ea28df7d0eedab74a8a58d8
+  note: >-
+    A Python project-creation example linked from the Lang.ai docs as "a starting point"
+    for the multipart/related upload. A gist by a Lang.ai engineer, not a distributed
+    package — no SDK pointer is wired for it.

@@ -1,0 +1,36 @@
+generated: '2026-07-19'
+method: searched
+probe: true
+probe_result: >-
+  0-working/probe-security-programs.py returned trust=none because it probes the lang.ai
+  domain only. Lang.ai itself publishes no trust center; the surfaces below belong to
+  Capacity, which acquired Lang.ai, and were verified by hand.
+scope: parent-platform
+url: https://trust.capacity.com/
+security_page: https://capacity.com/security/
+certifications:
+- SOC 2 Type II
+- HIPAA
+- GDPR
+controls:
+- name: Data encryption
+  detail: AES-256 encryption at rest and TLS 1.2+ for data in transit.
+- name: AI data privacy
+  detail: Customer data is never shared or used to train external models.
+- name: Role-based access control
+  detail: Controls over who has access to data.
+evidence:
+- source: https://capacity.com/security/
+  http_status: 200
+  quote: >-
+    "Regulatory Compliance — GDPR, HIPAA, SOC 2 Type II certified." / "Data Encryption —
+    AES-256 encryption at rest and TLS 1.2+ for data in transit."
+- source: https://trust.capacity.com/
+  http_status: 200
+  note: >-
+    Live trust center; the page title is "Capacity Trust Center". Content is
+    client-rendered, so certification detail was taken from the security page above.
+caveat: >-
+  These are Capacity's platform-level attestations following the acquisition, not a
+  Lang.ai-specific audit. No SOC 2 report or certification scope naming the Lang.ai API
+  was found.

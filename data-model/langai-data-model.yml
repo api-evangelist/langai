@@ -1,0 +1,98 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/langai-api-openapi.yml
+summary: >-
+  Lang.ai's object model is four entities deep. A Project is a custom classifier built
+  from an uploaded dataset. The algorithm extracts Intents (each carrying Features) from
+  that dataset, and users group them into Tags on the project. Documents are the text
+  units analyzed or stored against a project, and a classification result is the set of
+  Tags and Intents matched for a given document.
+entities:
+  - name: Project
+    description: >-
+      A custom classifier built from an uploaded dataset of customer interactions. Has a
+      processing status.
+    schema: openapi/langai-api-openapi.yml#/components/schemas/Project
+    id_field: id
+    id_format: >-
+      Opaque 16-character alphanumeric string (e.g. sWP2ll1v16lLdMxM, l3wNMwIXM1S046Sy).
+      No type prefix.
+    fields:
+      - {name: id, type: string}
+      - {name: name, type: string}
+      - {name: status, type: string, enum: [Errored, Processing, Completed]}
+      - {name: createdAt, type: string, format: iso8601}
+    operations:
+      - openapi/langai-api-openapi.yml#createProject
+      - openapi/langai-api-openapi.yml#listProjects
+      - openapi/langai-api-openapi.yml#getProjectTags
+    relationships:
+      - {type: has_many, target: Tag, via: tags}
+      - {type: has_many, target: Document, via: projectId}
+  - name: Tag
+    description: >-
+      A user-defined grouping of intents and features inside a project; tags are what the
+      classifier returns for a document. Tags may be drafts.
+    schema: openapi/langai-api-openapi.yml#/components/schemas/Tag
+    id_field: id
+    id_format: >-
+      Opaque 16-character alphanumeric string (e.g. tqGMbCpTBZOJaram). No type prefix.
+    fields:
+      - {name: id, type: string}
+      - {name: name, type: string}
+      - {name: createdAt, type: string, format: iso8601}
+      - {name: updatedAt, type: string, format: iso8601}
+      - {name: isDraft, type: boolean}
+    operations:
+      - openapi/langai-api-openapi.yml#getProjectTags
+    relationships:
+      - {type: belongs_to, target: Project, via: projectId}
+    docs: https://help.lang.ai/en/articles/3175538-using-tags
+  - name: Document
+    description: >-
+      A unit of customer text (support ticket, chatbot message, email) analyzed against a
+      project, optionally persisted with arbitrary metadata and a date for dashboard
+      reporting.
+    schema: openapi/langai-api-openapi.yml#/components/schemas/SaveDocumentRequest
+    id_field: id
+    id_format: >-
+      Client-supplied. Saving a document with an id that already exists overwrites the
+      stored document.
+    fields:
+      - {name: id, type: string, required: false}
+      - {name: text, type: string, required: true}
+      - {name: projectId, type: string, required: true}
+      - {name: metadata, type: object, required: false}
+      - {name: date, type: string, format: iso8601, required: false}
+    operations:
+      - openapi/langai-api-openapi.yml#analyzeDocument
+      - openapi/langai-api-openapi.yml#saveDocument
+    relationships:
+      - {type: belongs_to, target: Project, via: projectId}
+      - {type: has_many, target: Tag, via: tags}
+      - {type: has_many, target: Intent, via: intents}
+  - name: Intent
+    description: >-
+      An intent automatically extracted from the project dataset by the Lang.ai
+      algorithm, carrying a list of features. A ">" in a feature name indicates a
+      second-level feature.
+    schema: openapi/langai-api-openapi.yml#/components/schemas/Intent
+    id_field: name
+    fields:
+      - {name: name, type: string}
+      - {name: features, type: 'string[]'}
+    operations:
+      - openapi/langai-api-openapi.yml#analyzeDocument
+      - openapi/langai-api-openapi.yml#saveDocument
+    relationships:
+      - {type: belongs_to, target: Project, via: projectId}
+    docs: https://help.lang.ai/en/collections/1565410-technology#intents-and-features
+relationships:
+  - {from: Project, to: Tag, type: has_many, via: tags}
+  - {from: Tag, to: Project, type: belongs_to, via: projectId}
+  - {from: Project, to: Document, type: has_many, via: projectId}
+  - {from: Document, to: Project, type: belongs_to, via: projectId}
+  - {from: Document, to: Tag, type: has_many, via: tags}
+  - {from: Document, to: Intent, type: has_many, via: intents}
+  - {from: Intent, to: Project, type: belongs_to, via: projectId}
+render: null

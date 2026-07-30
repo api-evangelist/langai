@@ -1,0 +1,16 @@
+{
+  "provider": "langai",
+  "sources": [
+    "langai-documents-api-openapi.yml",
+    "langai-projects-api-openapi.yml"
+  ],
+  "outputs": [
+    "langai-documents-api-openapi.yml",
+    "langai-projects-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

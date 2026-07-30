@@ -1,0 +1,27 @@
+generated: '2026-07-19'
+method: generated
+source: >-
+  Generated from openapi/langai-api-openapi.yml, conventions/langai-conventions.yml and
+  errors/langai-problem-types.yml. Lang.ai publishes no AGENTS.md or agent skills of its
+  own.
+skills:
+- file: langai-build-classifier.md
+  name: Build a Lang.ai classifier from a dataset
+  description: >-
+    Create a project from a CSV dataset via multipart/related upload, poll until the
+    asynchronous build completes, and inspect the tags the algorithm produced.
+  api: openapi/langai-api-openapi.yml
+  operations:
+  - createProject
+  - listProjects
+  - getProjectTags
+- file: langai-classify-and-store.md
+  name: Classify and store customer interactions
+  description: >-
+    Classify customer text against a project for tags and intents, and persist documents
+    with metadata and stable client-supplied ids so retries stay idempotent.
+  api: openapi/langai-api-openapi.yml
+  operations:
+  - analyzeDocument
+  - saveDocument
+  - getProjectTags

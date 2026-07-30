@@ -1,0 +1,45 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.lang.ai/
+versioning:
+  scheme: uri-path
+  current: v1
+  evidence: 'Service URL is https://{company}.lang.ai/api/v1'
+  docs: https://docs.lang.ai/#the-api
+  policy_url: null
+  note: >-
+    Lang.ai publishes no written versioning policy. v1 is the only version ever
+    documented.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation policy, RFC 8594 Sunset/Deprecation header support, or migration guide
+    is published for the Lang.ai API.
+deprecated_operations: []
+sla:
+  url: null
+  uptime_target: null
+status_page: https://status.capacity.com/
+status_page_note: >-
+  Lang.ai has no status page of its own (status.lang.ai does not resolve). Following the
+  acquisition, Capacity's status page is the operational status surface for the product,
+  linked from the Capacity site navigation.
+support: https://help.lang.ai/
+company_lifecycle:
+  status: acquired
+  acquired_by: Capacity
+  evidence: >-
+    lang.ai 301-redirects to https://capacity.com/lang/?company=lang.ai, which states
+    "Lang AI is now part of Capacity — Lang AI's conversation intelligence is now part of
+    Capacity's AI-powered support automation platform."
+  surviving_surfaces:
+    - https://docs.lang.ai/
+    - https://help.lang.ai/
+    - https://github.com/lang-ai
+  successor_platform: https://capacity.com/
+  risk: >-
+    The API reference and help center remain live but are no longer actively marketed;
+    new development has moved to the Capacity platform. Treat the Lang.ai API as a
+    legacy/maintenance surface for existing tenants.

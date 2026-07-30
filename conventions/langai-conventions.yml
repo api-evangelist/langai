@@ -1,0 +1,104 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.lang.ai/
+summary: >-
+  Lang.ai exposes a small, flat REST surface over a per-tenant subdomain. Everything is
+  JSON in and JSON out (except project creation, which is a multipart/related upload),
+  authentication is a single bearer API token, and the API is versioned in the URI path.
+  There is no pagination, field expansion, sparse-fieldset or request-id contract
+  documented; idempotency is offered on document writes through a client-supplied
+  document id.
+base_url:
+  template: https://{company}.lang.ai/api/v1
+  note: >-
+    Per-tenant deployment — the subdomain is the customer's own Lang.ai instance.
+  documented: https://company.lang.ai/api/v1
+authentication:
+  style: bearer-token
+  header: Authorization
+  format: 'Bearer <api-token>'
+  issued_from: Settings section of your Lang.ai instance
+  rotation: >-
+    Generating a new token invalidates the previously issued ones — rotation is
+    single-active-token, so a rotation is a hard cutover.
+  applies_to: every request
+  artifact: authentication/langai-authentication.yml
+  docs: https://docs.lang.ai/#authentication
+idempotency:
+  supported: true
+  mechanism: client-supplied-resource-id
+  header: null
+  parameter: id
+  operations:
+    - saveDocument
+  semantics: >-
+    On POST /documents the optional "id" field is the ID of the document to save; if a
+    document with the same ID already exists it will be overwritten. Re-sending the same
+    document with the same id is therefore an upsert rather than a duplicate insert,
+    which makes retries of saveDocument safe.
+  scope: per project document store
+  retention: not documented
+  note: >-
+    This is client-supplied-id upsert idempotency, NOT an Idempotency-Key request header
+    (RFC-style). Lang.ai documents no idempotency key header, and no idempotency contract
+    for createProject, which is not safe to retry blindly.
+  docs: https://docs.lang.ai/#documents
+pagination:
+  supported: false
+  note: >-
+    GET /projects returns the full list of projects as a bare JSON array with no
+    pagination parameters, cursor, or envelope documented.
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  supported: true
+  operations:
+    - saveDocument
+    - createProject
+  shape: >-
+    saveDocument accepts a free-form "metadata" object of key/value pairs on the
+    document. New metadata values passed via the API become available to use in the
+    project's setup section and can be used in the project's Dashboard. createProject
+    accepts extra CSV columns in the uploaded dataset which are used as metadata.
+  docs: https://docs.lang.ai/#documents
+request_tracing:
+  request_id_header: not documented
+versioning:
+  scheme: uri-path
+  current: v1
+  artifact: lifecycle/langai-lifecycle.yml
+error_envelope:
+  format: json
+  rfc9457: false
+  note: >-
+    JSON is returned by all API responses, including errors. Lang.ai documents the HTTP
+    status codes it returns (400/401/404/429/500) but publishes no field-level error
+    body schema and does not use application/problem+json.
+  artifact: errors/langai-problem-types.yml
+  docs: https://docs.lang.ai/#errors
+rate_limiting:
+  supported: true
+  documented_limits: false
+  signal_headers: not documented
+  status_code: 429
+  note: >-
+    "To avoid abuse and ensure that the system remains online for every user, every API
+    request will need to provide valid credentials and the requests can be rate limited
+    if they exceed the limitations." No numeric limits, quota windows or RateLimit
+    response headers are published.
+  docs: https://docs.lang.ai/#rate-limit
+content_types:
+  request:
+    - application/json
+    - multipart/related
+    - text/csv
+    - text/plain
+  response:
+    - application/json
+dates:
+  format: ISO 8601
+  note: >-
+    The saveDocument "date" field supports valid ISO 8601 dates and defaults to the
+    request time when omitted.

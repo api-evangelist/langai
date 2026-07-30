@@ -1,0 +1,50 @@
+generated: '2026-07-19'
+method: searched
+source: live probes 2026-07-19
+summary: >-
+  No /.well-known/ discovery documents are served for Lang.ai. Every path under lang.ai
+  301-redirects to https://capacity.com/lang/?company=lang.ai, which returns the
+  marketing page as HTML 200 — so a naive status check reports 200 for any path. Each row
+  below records the true result. The docs host returns 403 for unknown paths, and
+  capacity.com returns clean 404s.
+hosts:
+- host: https://lang.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 301
+    redirect: https://capacity.com/lang/?company=lang.ai
+    served: false
+  - path: /openapi.json
+    status: 301
+    redirect: https://capacity.com/lang/?company=lang.ai
+    served: false
+- host: https://docs.lang.ai
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+    served: false
+  - path: /llms.txt
+    status: 403
+    served: false
+  - path: /openapi.json
+    status: 403
+    served: false
+- host: https://capacity.com
+  note: Successor platform following the acquisition of Lang.ai.
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    served: false
+  - path: /.well-known/openid-configuration
+    status: 404
+    served: false
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    served: false
+  - path: /.well-known/api-catalog
+    status: 404
+    served: false
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    served: false
+documents_found: 0

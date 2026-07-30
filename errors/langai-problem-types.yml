@@ -1,0 +1,83 @@
+generated: '2026-07-19'
+method: searched
+source: https://docs.lang.ai/#errors
+format: http-status
+rfc9457: false
+envelope:
+  media_type: application/json
+  note: >-
+    JSON is returned by all API responses, including errors. Lang.ai publishes the HTTP
+    status codes below but no field-level error body schema, error code registry, or
+    application/problem+json type URIs.
+problems:
+  - status: 400
+    title: Bad request / Missing fields
+    meaning: >-
+      The request was malformed or a required field was missing — for example a missing
+      "text" or "projectId" on analyze/documents, or a malformed multipart/related body
+      on project creation.
+    remediation: >-
+      Check that all required parameters are present and correctly typed, and that
+      multipart uploads set the metadata part first with Content-Type
+      "application/json; charset=UTF-8" and the media part second as text/plain or
+      text/csv with a matching boundary string.
+    source_operations:
+      - openapi/langai-api-openapi.yml#createProject
+      - openapi/langai-api-openapi.yml#analyzeDocument
+      - openapi/langai-api-openapi.yml#saveDocument
+  - status: 401
+    title: Unauthorized
+    meaning: >-
+      The request was not authenticated with a valid API token. Every request must be
+      authenticated.
+    remediation: >-
+      Send an "Authorization: Bearer <api-token>" header. Create a new API token from the
+      Settings section of your Lang.ai instance. Note that generating a new token
+      invalidates previously issued ones, so a stale token yields 401.
+    source_operations:
+      - openapi/langai-api-openapi.yml#createProject
+      - openapi/langai-api-openapi.yml#listProjects
+      - openapi/langai-api-openapi.yml#getProjectTags
+      - openapi/langai-api-openapi.yml#analyzeDocument
+      - openapi/langai-api-openapi.yml#saveDocument
+  - status: 404
+    title: Project not found
+    meaning: The projectId supplied does not resolve to a project on this instance.
+    remediation: >-
+      Call listProjects to confirm the project id, and confirm you are calling your own
+      instance subdomain — projects are scoped to a single Lang.ai tenant.
+    source_operations:
+      - openapi/langai-api-openapi.yml#getProjectTags
+      - openapi/langai-api-openapi.yml#analyzeDocument
+      - openapi/langai-api-openapi.yml#saveDocument
+  - status: 429
+    title: Too many requests / Rate limited
+    meaning: >-
+      The caller exceeded the rate limits applied to keep the system online for every
+      user.
+    remediation: >-
+      Back off and retry. No RateLimit/Retry-After response headers or numeric quotas are
+      documented, so use exponential backoff with jitter. saveDocument may be retried
+      safely when a client-supplied document "id" is used, since a repeat write with the
+      same id overwrites rather than duplicates.
+    source_operations:
+      - openapi/langai-api-openapi.yml#createProject
+      - openapi/langai-api-openapi.yml#listProjects
+      - openapi/langai-api-openapi.yml#getProjectTags
+      - openapi/langai-api-openapi.yml#analyzeDocument
+      - openapi/langai-api-openapi.yml#saveDocument
+  - status: 500
+    title: Internal server error
+    meaning: An unexpected error occurred on the Lang.ai side.
+    remediation: >-
+      Retry with backoff; if it persists contact support through the help center at
+      https://help.lang.ai/.
+    source_operations:
+      - openapi/langai-api-openapi.yml#createProject
+      - openapi/langai-api-openapi.yml#listProjects
+      - openapi/langai-api-openapi.yml#getProjectTags
+      - openapi/langai-api-openapi.yml#analyzeDocument
+      - openapi/langai-api-openapi.yml#saveDocument
+success:
+  status: 200
+  note: If the request succeeded, the response status will be 200 OK.
