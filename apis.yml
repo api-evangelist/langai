@@ -1,20 +1,97 @@
 aid: langai
 name: Lang.ai
-description: Lang.ai is a company surfaced as a portfolio company of 500-global and added to the API Evangelist
-  network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Lang.ai is a conversation-intelligence platform that turns unstructured customer
+  interactions — support tickets, chatbot messages, emails and calls — into structured
+  intents, features and tags. Its unsupervised algorithm ingests a dataset of customer
+  text, automatically extracts the intents and features it finds, and lets teams group
+  those into tags that form a custom classifier for any language, industry or business
+  case. A small REST API then applies that classifier in real time: create a project from
+  a CSV dataset, list projects and their tags, analyze a document to get back its matched
+  tags and intents, and save documents with arbitrary metadata for dashboard reporting.
+  Lang.ai was founded in Spain, backed by 500 Global, and is now part of Capacity, whose
+  AI support-automation platform absorbed Lang.ai's conversation intelligence.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://docs.lang.ai/images/logo-lang.svg
 url: https://raw.githubusercontent.com/api-evangelist/langai/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - 500-global
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: enriched
+x-tier-reason: documented-rest-api
+x-status: acquired
+x-acquired-by: Capacity
+x-acquisition-note: >-
+  lang.ai now redirects to https://capacity.com/lang/ ("Lang AI is now part of Capacity").
+  The Lang.ai API reference at https://docs.lang.ai/ and the help center at
+  https://help.lang.ai/ remain live; commercial, legal, status and compliance properties
+  are Capacity's.
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
-apis: []
+- Artificial Intelligence
+- Machine Learning
+- Natural Language Processing
+- Conversation Intelligence
+- Customer Support
+- Text Classification
+- Analytics
+- Customer Experience
+apis:
+- aid: langai:langai-documents-api
+  name: Lang.ai Documents API
+  description: Analyze and save documents against a project.
+  humanURL: https://docs.lang.ai/
+  baseURL: https://company.lang.ai/api/v1
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/langai-documents-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lang.ai/
+  - type: APIReference
+    url: https://docs.lang.ai/
+  - type: Authentication
+    url: authentication/langai-authentication.yml
+  - type: ErrorCatalog
+    url: errors/langai-problem-types.yml
+  - type: DataModel
+    url: data-model/langai-data-model.yml
+- aid: langai:langai-projects-api
+  name: Lang.ai Projects API
+  description: Create and inspect classification projects and their tags.
+  humanURL: https://docs.lang.ai/
+  baseURL: https://company.lang.ai/api/v1
+  tags:
+  - Projects
+  properties:
+  - type: OpenAPI
+    url: openapi/langai-projects-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lang.ai/
+  - type: APIReference
+    url: https://docs.lang.ai/
+  - type: Authentication
+    url: authentication/langai-authentication.yml
+  - type: ErrorCatalog
+    url: errors/langai-problem-types.yml
+  - type: DataModel
+    url: data-model/langai-data-model.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -23,3 +100,64 @@ maintainers:
 common:
 - type: Website
   url: https://lang.ai
+- type: DeveloperPortal
+  url: https://docs.lang.ai/
+- type: Documentation
+  url: https://docs.lang.ai/
+- type: APIReference
+  url: https://docs.lang.ai/
+- type: GettingStarted
+  url: https://docs.lang.ai/#workflow
+- type: Support
+  url: https://help.lang.ai/
+- type: HelpCenter
+  url: https://help.lang.ai/
+- type: GitHubOrganization
+  url: https://github.com/lang-ai
+- type: Blog
+  url: https://capacity.com/blog/
+- type: Pricing
+  url: https://capacity.com/pricing/
+- type: SignUp
+  url: https://capacity.com/lang/
+- type: TermsOfService
+  url: https://capacity.com/website-terms-of-use/
+- type: PrivacyPolicy
+  url: https://capacity.com/privacy-policy/
+- type: StatusPage
+  url: https://status.capacity.com/
+- type: Compliance
+  url: https://capacity.com/security/
+- type: Authentication
+  url: authentication/langai-authentication.yml
+- type: Conventions
+  url: conventions/langai-conventions.yml
+- type: Idempotency
+  url: conventions/langai-conventions.yml
+- type: ErrorCatalog
+  url: errors/langai-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/langai-lifecycle.yml
+- type: Conformance
+  url: conformance/langai-conformance.yml
+- type: DataModel
+  url: data-model/langai-data-model.yml
+- type: MCPServer
+  url: mcp/langai-mcp.yml
+- type: LLMsTxt
+  url: llms/langai-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Overlay
+  url: overlays/langai-api-overlay.yaml
+- type: DomainSecurity
+  url: security/langai-domain-security.yml
+- type: VulnerabilityDisclosure
+  url: security/langai-vulnerability-disclosure.yml
+- type: TrustCenter
+  url: security/langai-trust-center.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
