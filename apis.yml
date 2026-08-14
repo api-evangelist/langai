@@ -40,7 +40,7 @@ x-acquisition-note: >-
   are Capacity's.
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-08-14'
 tags:
 - Company
 - Artificial Intelligence
@@ -98,6 +98,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: AgenticAccess
+  url: agentic-access/langai-agentic-access.yml
 - type: Website
   url: https://lang.ai
 - type: DeveloperPortal
@@ -156,8 +158,27 @@ common:
   url: security/langai-vulnerability-disclosure.yml
 - type: TrustCenter
   url: security/langai-trust-center.yml
+- type: ChangeLog
+  url: changelog/langai-changelog.yml
+- type: ChangeLog
+  url: https://roadmap.lang.ai/changelog
+- type: Roadmap
+  url: https://roadmap.lang.ai/
+- type: Plans
+  url: plans/langai-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/langai-rate-limits.yml
+- type: Examples
+  url: examples/langai-request-examples.yml
+- type: Packages
+  url: packages/langai-packages.yml
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-14'
+  status: enriched
+  artifacts_added: 6
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  note: >-
+    Contract discovery re-run across five hosts (lang.ai, docs.lang.ai, help.lang.ai,
+    capacity.com, api.capacity.com). Newly found: the public Canny changelog + RSS feed at
+    roadmap.lang.ai, the Snowflake Marketplace Native App, and the empty langai-python SDK
+    repo. No agent card, no MCP server, no AsyncAPI, no OAuth, no sandbox, no SDK.
