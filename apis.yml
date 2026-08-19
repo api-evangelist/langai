@@ -38,7 +38,7 @@ x-acquisition-note: >-
   The Lang.ai API reference at https://docs.lang.ai/ and the help center at
   https://help.lang.ai/ remain live; commercial, legal, status and compliance properties
   are Capacity's.
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-07-17'
 modified: '2026-08-14'
 tags:
