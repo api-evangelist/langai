@@ -2,12 +2,11 @@ generated: '2026-07-19'
 method: derived
 source: openapi/langai-api-openapi.yml
 status: candidate
-note: >-
-  Lang.ai publishes no official hosted or remote MCP server — no server is listed in the
-  docs, the lang-ai GitHub organization, or the public MCP registries, and the company is
-  now part of Capacity. The tools below are a candidate surface derived one-to-one from
-  the documented REST operations, offered as a starting point for anyone wrapping the
-  Lang.ai API for agents. Do not present this as a Lang.ai-published server.
+note: Lang.ai publishes no official hosted or remote MCP server — no server is listed in the docs, the
+  lang-ai GitHub organization, or the public MCP registries, and the company is now part of Capacity.
+  The tools below are a candidate surface derived one-to-one from the documented REST operations, offered
+  as a starting point for anyone wrapping the Lang.ai API for agents. Do not present this as a Lang.ai-published
+  server.
 server:
   name: langai
   transport: stdio
@@ -15,37 +14,35 @@ server:
   auth:
     type: bearer
     env: LANGAI_API_TOKEN
-    note: >-
-      Also requires the tenant subdomain, e.g. LANGAI_INSTANCE=company for
-      https://company.lang.ai/api/v1.
+    note: Also requires the tenant subdomain, e.g. LANGAI_INSTANCE=company for https://company.lang.ai/api/v1.
 tools:
-  - name: create_project
-    description: >-
-      Create a Lang.ai classification project from a CSV dataset of customer
-      interactions, naming the text column and the teams that may access it.
-    source_operation: openapi/langai-api-openapi.yml#createProject
-    consequence: write
-  - name: list_projects
-    description: >-
-      List the classification projects on this Lang.ai instance with their id, name,
-      status and creation date.
-    source_operation: openapi/langai-api-openapi.yml#listProjects
-    consequence: read
-  - name: get_project_tags
-    description: >-
-      Get a project and the list of tags defined on it, including whether each tag is a
-      draft.
-    source_operation: openapi/langai-api-openapi.yml#getProjectTags
-    consequence: read
-  - name: analyze_document
-    description: >-
-      Classify a piece of text against a project and return the matched tags and the
-      intents/features detected, without persisting the document.
-    source_operation: openapi/langai-api-openapi.yml#analyzeDocument
-    consequence: read
-  - name: save_document
-    description: >-
-      Save a document into a project with optional metadata and date, returning its
-      classification. Supplying an existing document id overwrites that document.
-    source_operation: openapi/langai-api-openapi.yml#saveDocument
-    consequence: write
+- name: create_project
+  description: Create a Lang.ai classification project from a CSV dataset of customer interactions, naming
+    the text column and the teams that may access it.
+  source_operation: openapi/langai-api-openapi.yml#createProject
+  consequence: write
+- name: list_projects
+  description: List the classification projects on this Lang.ai instance with their id, name, status and
+    creation date.
+  source_operation: openapi/langai-api-openapi.yml#listProjects
+  consequence: read
+- name: get_project_tags
+  description: Get a project and the list of tags defined on it, including whether each tag is a draft.
+  source_operation: openapi/langai-api-openapi.yml#getProjectTags
+  consequence: read
+- name: analyze_document
+  description: Classify a piece of text against a project and return the matched tags and the intents/features
+    detected, without persisting the document.
+  source_operation: openapi/langai-api-openapi.yml#analyzeDocument
+  consequence: read
+- name: save_document
+  description: Save a document into a project with optional metadata and date, returning its classification.
+    Supplying an existing document id overwrites that document.
+  source_operation: openapi/langai-api-openapi.yml#saveDocument
+  consequence: write
+deployment:
+  mode: none
+  verified: derived
+  tools: 5
+  checked: '2026-08-12'
+  source: catalog MCP census

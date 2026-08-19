@@ -1,0 +1,54 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lang.ai Documents API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Documents",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Analyze a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.lang.ai/api/v1/analyze",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns the classification for a given document and the specified project. The document is not persisted; use the save documents operation to store it."
+        },
+        {
+          "info": {
+            "name": "Save a document",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.lang.ai/api/v1/documents",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Saves a given document into the specified project and returns its classification. Supports passing metadata that can later be used in the project dashboard; new metadata values passed via the API become available in the project setup section. Supplying an id that already exists overwrites the stored document."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

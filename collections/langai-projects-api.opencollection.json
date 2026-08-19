@@ -1,0 +1,65 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Lang.ai Documents Projects API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Projects",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a project",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{company}.lang.ai/api/v1/project"
+          },
+          "docs": "Create a project by performing a single multipart/related request (RFC 2387) containing both the project metadata and the contents of a dataset. The metadata part must come first with Content-Type application/json; charset=UTF-8, and the media part second with Content-Type text/plain or text/csv."
+        },
+        {
+          "info": {
+            "name": "List projects",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.lang.ai/api/v1/projects"
+          },
+          "docs": "Returns the list of projects. The request does not require a JSON body."
+        },
+        {
+          "info": {
+            "name": "List project tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{company}.lang.ai/api/v1/projects/:projectId",
+            "params": [
+              {
+                "name": "projectId",
+                "value": "l3wNMwIXM1S046Sy",
+                "type": "path",
+                "description": "The ID of the project."
+              }
+            ]
+          },
+          "docs": "Returns the project information as well as the list of zero, one or more tags defined on the project. The request does not require a JSON body."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

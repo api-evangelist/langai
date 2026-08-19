@@ -1,6 +1,7 @@
-generated: '2026-07-19'
+generated: '2026-08-14'
 method: searched
 source: https://docs.lang.ai/
+re_checked: '2026-08-14'
 versioning:
   scheme: uri-path
   current: v1
@@ -18,6 +19,28 @@ deprecation:
     No deprecation policy, RFC 8594 Sunset/Deprecation header support, or migration guide
     is published for the Lang.ai API.
 deprecated_operations: []
+changelog:
+  url: https://roadmap.lang.ai/changelog
+  feed: https://roadmap.lang.ai/api/changelog/feed.rss
+  platform: Canny
+  artifact: changelog/langai-changelog.yml
+  entry_count: 10
+  latest_entry: '2025-11-21'
+  scope: >-
+    Found on the 2026-08-14 pass and absent from the previous round. Every entry covers
+    the Lang.ai AI Agents product (the Snowflake Native App, its dashboard and chat), not
+    the /api/v1 REST surface — the REST API has no published change signal at all.
+roadmap:
+  url: https://roadmap.lang.ai/
+  board: https://roadmap.lang.ai/ai-agents-improvements
+  platform: Canny
+  public: true
+  accepts_submissions: true
+  note: >-
+    A public Canny feature-request board with the status columns Future (2023), Under
+    Review, Q2 Plan, Planned, In Progress and Complete. The board itself currently shows
+    "No feedback yet" under Trending, and the newest status column is labelled for 2023,
+    so the roadmap is published but dormant.
 sla:
   url: null
   uptime_target: null
@@ -38,6 +61,18 @@ company_lifecycle:
     - https://docs.lang.ai/
     - https://help.lang.ai/
     - https://github.com/lang-ai
+    - https://roadmap.lang.ai/
+    - https://app.snowflake.com/marketplace/listing/GZTSZ1TJ3IU/lang-ai-snowflake-ai-agents
+  activity_signals:
+    - signal: changelog
+      last: '2025-11-21'
+      source: https://roadmap.lang.ai/changelog
+    - signal: github lang-ai/snowflake-app-samples last push
+      last: '2025-02-13'
+    - signal: github lang-ai/docs (the API reference site) last push
+      last: '2023-08-11'
+    - signal: 'github lang-ai/langai-python (named Python SDK) — created and abandoned same day'
+      last: '2018-06-25'
   successor_platform: https://capacity.com/
   risk: >-
     The API reference and help center remain live but are no longer actively marketed;

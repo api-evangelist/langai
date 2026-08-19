@@ -1,0 +1,150 @@
+generated: '2026-08-14'
+method: searched
+source: https://roadmap.lang.ai/changelog
+feed: https://roadmap.lang.ai/api/changelog/feed.rss
+checked: '2026-08-14'
+summary: >-
+  Lang.ai runs a public Canny instance at roadmap.lang.ai (canonical host langai.canny.io)
+  carrying both a feature-request board and a dated changelog, plus a real RSS feed. This
+  was not captured in the previous round. IMPORTANT SCOPE NOTE: every entry describes the
+  Lang.ai AI Agents product — the Snowflake Native App and its insights dashboard, chat and
+  reporting surfaces — not the REST API documented at docs.lang.ai. No changelog entry in
+  the published window touches the /api/v1 REST surface, its operations, or its contract.
+  The REST API is therefore unversioned in practice and has no change signal of its own.
+scheme:
+  api_versioning: uri-path
+  current: v1
+  release_tagging: none
+  note: >-
+    Changelog entries are titled features with a publication date and a Canny label
+    (new | improved), not semantic versions. There is no version number a REST consumer
+    can pin against, and no mapping from a changelog entry to an API change.
+surfaces:
+  changelog: https://roadmap.lang.ai/changelog
+  roadmap_board: https://roadmap.lang.ai/ai-agents-improvements
+  canonical_host: https://langai.canny.io
+  platform: Canny
+feeds:
+  rss: https://roadmap.lang.ai/api/changelog/feed.rss
+  atom: null
+  json: null
+  probed:
+    - url: https://roadmap.lang.ai/changelog
+      status: 200
+      note: 301s to https://langai.canny.io/changelog; entries are server-rendered and readable.
+    - url: https://roadmap.lang.ai/api/changelog/feed.rss
+      status: 200
+      content_type: application/rss+xml
+      note: RSS 2.0, generator Canny, 10 items.
+    - url: https://roadmap.lang.ai/changelog/rss
+      status: 200
+      note: Not a feed — returns the SPA shell. The real feed path is /api/changelog/feed.rss.
+entry_count: 10
+window:
+  earliest: '2025-02-18'
+  latest: '2025-11-21'
+staleness_note: >-
+  The most recent entry is 2025-11-21, roughly nine months before this check. Read together
+  with lifecycle/langai-lifecycle.yml (the company was acquired by Capacity and lang.ai
+  301-redirects to capacity.com/lang/), the changelog cadence has stopped rather than
+  slowed — the product surface it documents is no longer receiving dated releases.
+entries:
+  - date: '2025-11-21'
+    label: new
+    title: Customize Your Insights Dashboard
+    url: https://langai.canny.io/changelog/customize-your-insights-dashboard
+    area: insights-dashboard
+    breaking: false
+    highlights:
+      - Drag-and-drop reordering of pinned questions.
+      - Charts now render automatically inside pinned questions.
+      - Pinned questions can be renamed without changing the underlying query.
+      - Pinned-question cards can be resized for flexible dashboard layouts.
+  - date: '2025-10-13'
+    label: new
+    title: Pinned Chats
+    url: https://langai.canny.io/changelog/pinned-chats
+    area: insights-dashboard
+    breaking: false
+    highlights:
+      - Pin up to 6 questions to an agent dashboard; answers refresh weekly as new data is processed.
+      - Pinned questions and their answers are included in the weekly email report.
+  - date: '2025-10-01'
+    label: new
+    title: Chat Experience Enhancements
+    url: https://langai.canny.io/changelog/chat-experience-enhancements
+    area: conversational-agent
+    breaking: false
+    highlights:
+      - Contextual follow-up suggestions (deep dives, breakdown queries, time comparisons).
+      - Starter questions on new chats.
+      - Chart visualizations generated from chat requests.
+      - Chat list search moved to the top; conversations grouped by week and month.
+  - date: '2025-09-15'
+    label: new
+    title: Email Reports
+    url: https://langai.canny.io/changelog/email-reports
+    area: reporting
+    breaking: false
+    highlights:
+      - Automated weekly email reports with highlights, top 5 categories, ranking changes and growth metrics.
+      - Requires a Snowflake administrator to create a notification integration first.
+  - date: '2025-06-23'
+    label: new
+    title: Conversational AI Agents
+    url: https://langai.canny.io/changelog/conversational-ai-agents
+    area: conversational-agent
+    breaking: false
+    status: beta
+    highlights:
+      - Natural-language chat interface against an agent, with conversation context and follow-ups.
+      - Shipped explicitly in beta ("we're actively expanding query capabilities").
+  - date: '2025-05-30'
+    label: new
+    title: 'Flexible Date Analysis: Compare Periods or Analyze Trends'
+    url: https://langai.canny.io/changelog/flexible-date-analysis-compare-periods-or-analyze-trends
+    area: analysis
+    breaking: false
+    highlights:
+      - Two analysis modes — compare two periods, or analyze trends within a single timeframe.
+      - Highlights report adapts to the selected mode.
+  - date: '2025-05-30'
+    label: improved
+    title: Highlights Report Gets AI Recommendations
+    url: https://langai.canny.io/changelog/highlights-report-gets-ai-recommendations
+    area: reporting
+    breaking: false
+    highlights:
+      - AI-generated recommendations per significant trend.
+      - Segment insights, one-click sharing, improved visualization.
+  - date: '2025-03-13'
+    label: new
+    title: Insight Summary
+    url: https://langai.canny.io/changelog/insight-summary
+    area: insights
+    breaking: false
+    highlights:
+      - Automatic trend, root-cause and representative-quote summary per insight.
+  - date: '2025-03-13'
+    label: new
+    title: Highlights Report
+    url: https://langai.canny.io/changelog/highlights-report
+    area: reporting
+    breaking: false
+    highlights:
+      - Surfaces highest increasing and decreasing topics across Snowflake data.
+      - Reports changes in metadata distributions (product categories, brands).
+  - date: '2025-02-18'
+    label: new
+    title: Saved Date Filters
+    url: https://langai.canny.io/changelog/saved-date-filters
+    area: insights-dashboard
+    breaking: false
+    highlights:
+      - Date ranges persist between sessions, with presets such as "Last 7 days".
+breaking_changes: []
+breaking_changes_note: >-
+  No entry in the published window is marked breaking, and none describes a REST API change.
+related:
+  lifecycle: lifecycle/langai-lifecycle.yml
+  conventions: conventions/langai-conventions.yml

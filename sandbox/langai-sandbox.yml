@@ -1,0 +1,84 @@
+generated: '2026-08-14'
+method: searched
+source: https://docs.lang.ai/ + https://github.com/lang-ai/snowflake-app-samples
+checked: '2026-08-14'
+summary: >-
+  Lang.ai operates NO sandbox. There is no test mode, no test-vs-live key separation, no
+  key prefix distinguishing environments, no hosted console or playground, and no test
+  fixtures for the REST API. The API reference documents exactly one credential — a
+  single bearer token created in the Settings section of the customer's own production
+  instance, where "generating a new token will invalidate the previously issued ones", so
+  there is not even a second token to reserve for testing. Any experimentation against
+  the Lang.ai API happens on live tenant data. What Lang.ai does publish is a synthetic
+  demo dataset for the Snowflake Native App — real, first-party, and explicitly labelled
+  as artificial — recorded below as fixtures.
+sandbox_environment: false
+test_mode: false
+key_prefixes: []
+key_prefix_note: >-
+  No prefix is documented on the API token, and no live/test discriminator exists. The
+  only token property Lang.ai publishes is that issuing a new one revokes all previous
+  ones — single-active-token rotation, which makes a hard cutover the only rotation path
+  and leaves no way to hold a separate testing credential.
+console: null
+playground: null
+test_clocks: false
+simulation_values: []
+fixtures:
+  - name: Retention AI Agent quickstart
+    scope: snowflake-native-app
+    url: https://github.com/lang-ai/snowflake-app-samples/tree/main/retention-agent-demo
+    official: true
+    files:
+      - setup.sql
+      - zoom_cancellations_synthetic.csv
+      - zoom_users.csv
+    provider_statement: >-
+      "The dataset included in this repository is artificially generated for
+      demonstration purposes. While it accurately represents the structure and type of
+      data you'll work with, it should not be considered real customer data."
+    note: >-
+      A published sample dataset and setup script for the Snowflake Native App, not a
+      sandbox: it runs inside the customer's own Snowflake account against real compute
+      and requires ACCOUNTADMIN privileges plus a provisioned warehouse and compute pool.
+  - name: Native App install script
+    scope: snowflake-native-app
+    url: https://github.com/lang-ai/snowflake-app-samples/blob/main/install-script.sql
+    official: true
+    note: >-
+      Grants and configuration SQL for a first install. Placeholder values only
+      (<YOUR_WAREHOUSE>, LANGAI_APP) — no credentials.
+documentation_placeholders:
+  note: >-
+    The docs' example values, recorded so an agent does not mistake them for working test
+    data. None of these resolve to anything.
+  values:
+    - value: company.lang.ai
+      meaning: Placeholder tenant subdomain. Not a live host — the TLS probe on this name returns a hostname-mismatch certificate error.
+    - value: YOUR_TOKEN / API_TOKEN
+      meaning: Placeholder bearer token in the curl and multipart examples.
+    - value: project_id / YOUR_PROJECT_ID
+      meaning: Placeholder project identifier.
+    - value: sWP2ll1v16lLdMxM, l3wNMwIXM1S046Sy
+      meaning: Example project ids in the listProjects/getProjectTags response samples.
+    - value: tqGMbCpTBZOJaram
+      meaning: Example tag id in the classification response samples.
+pointer_note: >-
+  No `Sandbox` pointer is wired in apis.yml. The console_or_sandbox check asks whether a
+  developer can exercise the API without touching production, and the answer here is no.
+  Recording the absence is the finding; asserting a sandbox on the strength of a demo CSV
+  would be false.
+evidence:
+  - url: https://docs.lang.ai/
+    http_status: 200
+    note: >-
+      Full reference captured. No occurrence of sandbox, test mode, test key, staging or
+      playground anywhere in the document.
+  - url: https://github.com/lang-ai/snowflake-app-samples
+    http_status: 200
+  - url: https://raw.githubusercontent.com/lang-ai/snowflake-app-samples/main/retention-agent-demo/README.md
+    http_status: 200
+related:
+  authentication: authentication/langai-authentication.yml
+  conventions: conventions/langai-conventions.yml
+  packages: packages/langai-packages.yml

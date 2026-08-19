@@ -1,0 +1,128 @@
+generated: '2026-08-14'
+method: searched
+source: https://capacity.com/pricing/
+checked: '2026-08-14'
+scope: parent-platform
+summary: >-
+  Lang.ai publishes NO pricing of its own. lang.ai 301-redirects to
+  https://capacity.com/lang/, the docs host (docs.lang.ai) carries no pricing or plan
+  language anywhere in the API reference, and the help center carries none either. The
+  only published plan structure belongs to Capacity, the acquirer, and it is a
+  three-tier contact-sales page with no prices, no currency, no billing period and no
+  quantified quota. The Lang.ai REST API is not itself a purchasable line item on that
+  page; the closest match is the "Pro" tier, which lists "conversation intelligence" and
+  "developer platform" among its inclusions.
+prices_published: false
+currency: null
+billing_period: null
+public_signup_pricing: false
+pricing_model: contact-sales
+plan_count: 3
+langai_own_plan_count: 0
+langai_own_plan_note: >-
+  Zero is the measured result for Lang.ai as a standalone product, not a gap in this
+  probe. The three plans below are recorded under scope parent-platform and must not be
+  read as Lang.ai API pricing.
+plans:
+  - name: Core
+    price: null
+    currency: null
+    billing_period: null
+    cta: Contact sales
+    positioning: Essential tools to launch AI-powered support.
+    included:
+      - Knowledge base
+      - Helpdesk
+      - AI Agent Builder
+      - Data indexing
+      - 250+ integrations
+      - Analytics
+    limits:
+      storage: up to 100GB
+    included_quota: null
+    overage: null
+  - name: Pro
+    price: null
+    currency: null
+    billing_period: null
+    cta: Contact sales
+    most_popular: true
+    positioning: Full platform with Agent Assist capabilities.
+    included:
+      - Everything in Core
+      - Live chat
+      - Real-time Agent Assist
+      - Conversation intelligence
+      - AQA
+      - Developer platform
+    limits:
+      storage: up to 1TB
+    included_quota: null
+    overage: null
+    note: >-
+      The tier that names "conversation intelligence" (the Lang.ai capability) and
+      "developer platform" (API access). Capacity does not state whether the legacy
+      Lang.ai /api/v1 surface is included, and no per-call price is published.
+  - name: Enterprise
+    price: null
+    currency: null
+    billing_period: null
+    cta: Contact sales
+    positioning: Full suite with advanced compliance and scale.
+    included:
+      - Everything in Pro
+      - Campaigns
+      - CRM
+      - Advanced workflows
+      - HIPAA package option
+    limits:
+      storage: up to 2TB
+    included_quota: null
+    overage: null
+usage_based_addons:
+  note: >-
+    Capacity lists five consumption-priced add-ons with a unit but no rate. "Volume
+    discounts available. The more you use, the less you pay per interaction."
+  items:
+    - name: Chat AI Agent
+      unit: per response
+      rate: null
+    - name: Voice AI Agent
+      unit: per minute
+      rate: null
+    - name: Email AI Agent
+      unit: per response
+      rate: null
+    - name: SMS AI Agent
+      unit: per message
+      rate: null
+    - name: Agent Assist & Intelligence
+      unit: per hour of agent time
+      rate: null
+other_distribution:
+  - channel: Snowflake Marketplace
+    listing: 'Lang.ai: Snowflake AI agents'
+    url: https://app.snowflake.com/marketplace/listing/GZTSZ1TJ3IU/lang-ai-snowflake-ai-agents
+    http_status: 200
+    price_published: false
+    note: >-
+      The Native App listing renders client-side behind the Snowflake console, so no
+      price, trial term or usage rate could be read anonymously. Consumers additionally
+      pay Snowflake compute (the install script provisions a warehouse and a compute
+      pool), which is billed by Snowflake, not Lang.ai.
+free_tier: null
+trial:
+  offered: true
+  scope: parent-platform
+  detail: 'Capacity llms.txt call-to-action: "Start your free Capacity trial (30-day access)".'
+  source: https://capacity.com/llms.txt
+evidence:
+  - url: https://capacity.com/pricing/
+    http_status: 200
+    note: Three tiers, all "contact sales"; no numeric price anywhere on the page.
+  - url: https://docs.lang.ai/
+    http_status: 200
+    note: Full API reference captured; contains no pricing, plan, quota or billing language.
+  - url: https://capacity.com/llms.txt
+    http_status: 200
+    note: Names the 30-day free trial CTA; states no prices.

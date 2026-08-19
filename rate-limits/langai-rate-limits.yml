@@ -1,0 +1,58 @@
+generated: '2026-08-14'
+method: searched
+source: https://docs.lang.ai/#rate-limit
+checked: '2026-08-14'
+summary: >-
+  Lang.ai documents that rate limiting EXISTS but publishes not one number and not one
+  header. The entire published contract is a single sentence: "To avoid abuse and ensure
+  that the system remains online for every user, every API request will need to provide
+  valid credentials and the requests can be rate limited if they exceed the limitations."
+  The error table then lists 429 "Too many requests / Rate limited". There is no window,
+  no quota, no burst, no per-key vs per-account scope, no RateLimit-*/X-RateLimit-*
+  response header and no Retry-After. An agent cannot budget against this API; it can only
+  react to a 429 it has already earned.
+limit_count: 0
+limit_count_note: >-
+  An honest zero. Rate limiting is documented as enforced but no limit is quantified
+  anywhere in the reference, the help center, or any Lang.ai surface probed.
+enforced: true
+scopes: []
+headers: []
+headers_note: >-
+  No rate-limit response headers are documented. The live surface could not be observed:
+  the base URL is the per-tenant template https://{company}.lang.ai/api/v1 and there is no
+  public tenant to probe anonymously, so no 429 could be induced or inspected. Absence
+  here means "not published and not observable", not "not emitted".
+status_on_exhaustion: 429
+status_source: 'https://docs.lang.ai/#errors — "429 | Too many requests / Rate limited"'
+retry_after: null
+retry_guidance: >-
+  With no window, no remaining counter and no Retry-After, the only safe client behavior
+  is exponential backoff with full jitter on 429, plus a client-side concurrency cap.
+  Retries of saveDocument are safe when a stable client-supplied document `id` is sent
+  (see conventions/langai-conventions.yml); createProject has no idempotency contract and
+  must be reconciled against listProjects before a blind retry.
+quotas: []
+concurrency: null
+evidence:
+  - url: https://docs.lang.ai/
+    http_status: 200
+    section: Rate Limit
+    quote: >-
+      "To avoid abuse and ensure that the system remains online for every user, every API
+      request will need to provide valid credentials and the requests can be rate limited
+      if they exceed the limitations."
+  - url: https://docs.lang.ai/
+    http_status: 200
+    section: Errors
+    quote: '429 — Too many requests / Rate limited'
+  - url: https://company.lang.ai/api/v1/projects
+    http_status: null
+    note: >-
+      Not probed. `company` is a documentation placeholder for the customer's own tenant
+      subdomain, not a live host — see security/langai-domain-security.yml, where the TLS
+      probe records a hostname-mismatch certificate error for company.lang.ai.
+related:
+  conventions: conventions/langai-conventions.yml
+  errors: errors/langai-problem-types.yml
+  plans: plans/langai-plans-pricing.yml

@@ -1,9 +1,42 @@
-generated: '2026-07-19'
-method: derived
-source: openapi/langai-api-openapi.yml
+generated: '2026-08-14'
+method: searched
+source: https://docs.lang.ai/#authentication
+docs: https://docs.lang.ai/#authentication
+derived_from: openapi/_original/langai-api-openapi.yml
+checked: '2026-08-14'
 summary:
   types:
   - http
+  http_schemes:
+  - bearer
+  api_key_in: []
+  oauth2_flows: []
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+  scopes_published: false
+  scopes_note: >-
+    Lang.ai has no OAuth surface and therefore no scope model. A single static bearer
+    token carries full instance-level authority — there is no way to issue a
+    least-privilege credential, which is the single most consequential authentication
+    fact about this API for an agent deployment.
+  multi_tenant_note: >-
+    Authentication alone is not sufficient to address the API. The base URL is the
+    per-tenant template https://{company}.lang.ai/api/v1, so a caller needs both the
+    bearer token AND the customer's own instance subdomain.
+token_lifecycle:
+  issued_from: Settings section of your Lang.ai instance
+  expiry: not documented
+  rotation: single-active-token
+  rotation_detail: >-
+    "Keep in mind that generating a new token will invalidate the previously issued
+    ones." There is no overlap window, so rotation is a hard cutover: every client must
+    be updated simultaneously or it will start receiving 401.
+  revocation: implicit — issuing a new token revokes all prior tokens
+  provider_warning: >-
+    "Do not share your secret API tokens in publicly accessible areas such GitHub,
+    client-side code, and so forth."
+  applies_to: every request
 schemes:
 - name: bearerAuth
   type: http

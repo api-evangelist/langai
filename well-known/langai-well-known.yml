@@ -1,50 +1,155 @@
-generated: '2026-07-19'
-method: searched
-source: live probes 2026-07-19
+generated: '2026-08-14'
+method: probed
+source: live probes 2026-07-19, re-probed and extended 2026-08-14
 summary: >-
-  No /.well-known/ discovery documents are served for Lang.ai. Every path under lang.ai
-  301-redirects to https://capacity.com/lang/?company=lang.ai, which returns the
-  marketing page as HTML 200 — so a naive status check reports 200 for any path. Each row
-  below records the true result. The docs host returns 403 for unknown paths, and
-  capacity.com returns clean 404s.
-hosts:
-- host: https://lang.ai
-  documents:
-  - path: /.well-known/security.txt
-    status: 301
-    redirect: https://capacity.com/lang/?company=lang.ai
-    served: false
-  - path: /openapi.json
-    status: 301
-    redirect: https://capacity.com/lang/?company=lang.ai
-    served: false
-- host: https://docs.lang.ai
-  documents:
-  - path: /.well-known/security.txt
-    status: 403
-    served: false
-  - path: /llms.txt
-    status: 403
-    served: false
-  - path: /openapi.json
-    status: 403
-    served: false
-- host: https://capacity.com
-  note: Successor platform following the acquisition of Lang.ai.
-  documents:
-  - path: /.well-known/security.txt
-    status: 404
-    served: false
-  - path: /.well-known/openid-configuration
-    status: 404
-    served: false
-  - path: /.well-known/oauth-authorization-server
-    status: 404
-    served: false
-  - path: /.well-known/api-catalog
-    status: 404
-    served: false
-  - path: /.well-known/ai-plugin.json
-    status: 404
-    served: false
+  No /.well-known/ discovery document is served on ANY host in the Lang.ai estate.
+  Re-probed 2026-08-14 across five hosts, including the Capacity successor hosts and
+  api.capacity.com, which was not checked in the previous round. Read the status column
+  carefully: every path on lang.ai 301-redirects to
+  https://capacity.com/lang/?company=lang.ai and then returns the marketing page as HTML
+  200, so a naive follow-redirects status check reports 200 for literally any path,
+  including /.well-known/agent-card.json. Each row below records the TRUE result. The
+  docs host returns an S3 AccessDenied 403 for unknown paths; capacity.com returns clean
+  HTML 404s; api.capacity.com returns clean JSON 404s.
 documents_found: 0
+pointer_note: >-
+  No `WellKnown` and no `SecurityTxt` pointer is wired in apis.yml. Every path 404s,
+  403s or redirects to a marketing page. This file documents an absence and must not be
+  read as a presence.
+hosts:
+  - host: https://lang.ai
+    behavior: SPA/marketing catch-all — every path 301s to capacity.com/lang/ and renders HTML 200
+    documents:
+      - path: /.well-known/security.txt
+        status: 301
+        redirect: https://capacity.com/lang/?company=lang.ai
+        served: false
+      - path: /.well-known/agent-card.json
+        status: 301
+        final_status: 200
+        final_content_type: text/html
+        served: false
+        note: HTML shell, not an agent card. Classic SPA catch-all false positive.
+      - path: /.well-known/agent.json
+        status: 301
+        final_status: 200
+        final_content_type: text/html
+        served: false
+      - path: /openapi.json
+        status: 301
+        final_status: 200
+        final_content_type: text/html
+        served: false
+  - host: https://docs.lang.ai
+    behavior: Static site on S3 — unknown paths return AccessDenied
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+        served: false
+      - path: /.well-known/agent-card.json
+        status: 403
+        served: false
+      - path: /.well-known/agent.json
+        status: 403
+        served: false
+      - path: /llms.txt
+        status: 403
+        served: false
+      - path: /openapi.json
+        status: 403
+        served: false
+      - path: /openapi.yaml
+        status: 403
+        served: false
+      - path: /swagger.json
+        status: 403
+        served: false
+  - host: https://help.lang.ai
+    behavior: Intercom-hosted help center
+    documents:
+      - path: /.well-known/agent-card.json
+        status: 404
+        served: false
+      - path: /.well-known/agent.json
+        status: 404
+        served: false
+  - host: https://capacity.com
+    note: Successor platform following the acquisition of Lang.ai.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        served: false
+      - path: /.well-known/openid-configuration
+        status: 404
+        served: false
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        served: false
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        served: false
+      - path: /.well-known/api-catalog
+        status: 404
+        served: false
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        served: false
+      - path: /.well-known/mcp.json
+        status: 404
+        served: false
+      - path: /.well-known/agent-card.json
+        status: 404
+        served: false
+      - path: /.well-known/agent.json
+        status: 404
+        served: false
+      - path: /llms.txt
+        status: 200
+        content_type: text/plain
+        served: true
+        served_for: capacity.com
+        note: >-
+          A real llms.txt — but it is CAPACITY's, describing the Capacity support-automation
+          platform, and it does not mention Lang.ai, the Lang.ai API, or any endpoint. It is
+          recorded here as a probed fact about the successor host, NOT wired as a Lang.ai
+          LLMsTxt pointer. Lang.ai's own docs host returns 403 for /llms.txt.
+  - host: https://api.capacity.com
+    note: >-
+      Newly found on the 2026-08-14 pass. Serves a Swagger UI page titled "Capacity API
+      Docs" at / and /docs, whose loader points at ./docs/swagger.yml — a path that
+      returns a JSON 404 at every variant tried, so no spec could be retrieved. This is
+      Capacity's API surface, not Lang.ai's, and nothing from it is wired into this repo.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+        served: false
+      - path: /.well-known/openid-configuration
+        status: 404
+        served: false
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+        served: false
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+        served: false
+      - path: /.well-known/api-catalog
+        status: 404
+        served: false
+      - path: /.well-known/ai-plugin.json
+        status: 404
+        served: false
+      - path: /.well-known/mcp.json
+        status: 404
+        served: false
+      - path: /.well-known/agent-card.json
+        status: 404
+        served: false
+      - path: /.well-known/agent.json
+        status: 404
+        served: false
+not_probed:
+  - host: https://company.lang.ai
+    reason: >-
+      Documentation placeholder for the customer's own tenant subdomain, not a live host.
+      TLS verification fails with a hostname mismatch (see
+      security/langai-domain-security.yml).
