@@ -44,6 +44,16 @@ modified: '2026-08-14'
 tags:
 - Company
 - Artificial Intelligence
+- Machine-Learning
+- Natural Language Processing
+- Conversation Intelligence
+- Customer-Support
+- Text Classification
+- Analytics
+- Customer Experience
+tags_raw:
+- Company
+- Artificial Intelligence
 - Machine Learning
 - Natural Language Processing
 - Conversation Intelligence
@@ -78,6 +88,8 @@ apis:
   humanURL: https://docs.lang.ai/
   baseURL: https://company.lang.ai/api/v1
   tags:
+  - Project
+  tags_raw:
   - Projects
   properties:
   - type: OpenAPI
