@@ -11,6 +11,10 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
+  "notes": [
+    "langai-documents-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "langai-projects-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
   "skipped": []
 }

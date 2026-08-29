@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Lang.ai Documents Projects API
   version: '1.0'
@@ -136,20 +136,8 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   responses:
-    NotFound:
-      description: Project not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests / Rate limited
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
+    BadRequest:
+      description: Bad request / Missing fields
       content:
         application/json:
           schema:
@@ -160,39 +148,45 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request / Missing fields
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests / Rate limited
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Project not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    ProjectMetadata:
+    ProjectWithTags:
+      allOf:
+      - $ref: '#/components/schemas/Project'
+      - type: object
+        properties:
+          tags:
+            type: array
+            description: An array of tags.
+            items:
+              $ref: '#/components/schemas/Tag'
+    ProjectCreated:
       type: object
-      required:
-      - name
-      - csvOptions
-      - team_ids
       properties:
-        name:
+        id:
           type: string
-          description: The name of the project.
-        csvOptions:
-          type: object
-          required:
-          - textColumn
-          properties:
-            textColumn:
-              type: string
-              description: The name of the column from the CSV file containing each document's text.
-            dateColumn:
-              type: string
-              description: Optional. The name of the column from the CSV file that contains the document's date.
-        team_ids:
-          type: array
-          description: The list of team ids that will have access to the project.
-          items:
-            type: string
+          description: The id of the project.
+    Error:
+      type: object
+      description: JSON is returned by all API responses, including errors. Lang.ai documents the HTTP status codes but does not publish a field-level error envelope schema.
+      additionalProperties: true
     Project:
       type: object
       properties:
@@ -230,26 +224,32 @@ components:
         isDraft:
           type: boolean
           description: Whether or not the tag is draft.
-    ProjectCreated:
+    ProjectMetadata:
       type: object
+      required:
+      - name
+      - csvOptions
+      - team_ids
       properties:
-        id:
+        name:
           type: string
-          description: The id of the project.
-    ProjectWithTags:
-      allOf:
-      - $ref: '#/components/schemas/Project'
-      - type: object
-        properties:
-          tags:
-            type: array
-            description: An array of tags.
-            items:
-              $ref: '#/components/schemas/Tag'
-    Error:
-      type: object
-      description: JSON is returned by all API responses, including errors. Lang.ai documents the HTTP status codes but does not publish a field-level error envelope schema.
-      additionalProperties: true
+          description: The name of the project.
+        csvOptions:
+          type: object
+          required:
+          - textColumn
+          properties:
+            textColumn:
+              type: string
+              description: The name of the column from the CSV file containing each document's text.
+            dateColumn:
+              type: string
+              description: Optional. The name of the column from the CSV file that contains the document's date.
+        team_ids:
+          type: array
+          description: The list of team ids that will have access to the project.
+          items:
+            type: string
   securitySchemes:
     bearerAuth:
       type: http

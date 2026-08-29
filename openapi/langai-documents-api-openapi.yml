@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Lang.ai Documents API
   version: '1.0'
@@ -117,6 +117,42 @@ components:
           description: An array of intents.
           items:
             $ref: '#/components/schemas/Intent'
+    Intent:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the intent.
+        features:
+          type: array
+          description: An array of features. The sign ">" indicates a second-level feature.
+          items:
+            type: string
+    Error:
+      type: object
+      description: JSON is returned by all API responses, including errors. Lang.ai documents the HTTP status codes but does not publish a field-level error envelope schema.
+      additionalProperties: true
+    TagRef:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the tag.
+        name:
+          type: string
+          description: The name of the tag.
+    AnalyzeRequest:
+      type: object
+      required:
+      - text
+      - projectId
+      properties:
+        text:
+          type: string
+          description: The text to be classified.
+        projectId:
+          type: string
+          description: The project to be used to classify the text.
     SaveDocumentRequest:
       type: object
       required:
@@ -139,57 +175,9 @@ components:
         id:
           type: string
           description: ID of the document to save. If a document with the same ID already exists, it will be overwritten.
-    Intent:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the intent.
-        features:
-          type: array
-          description: An array of features. The sign ">" indicates a second-level feature.
-          items:
-            type: string
-    TagRef:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of the tag.
-        name:
-          type: string
-          description: The name of the tag.
-    AnalyzeRequest:
-      type: object
-      required:
-      - text
-      - projectId
-      properties:
-        text:
-          type: string
-          description: The text to be classified.
-        projectId:
-          type: string
-          description: The project to be used to classify the text.
-    Error:
-      type: object
-      description: JSON is returned by all API responses, including errors. Lang.ai documents the HTTP status codes but does not publish a field-level error envelope schema.
-      additionalProperties: true
   responses:
-    NotFound:
-      description: Project not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    TooManyRequests:
-      description: Too many requests / Rate limited
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
+    BadRequest:
+      description: Bad request / Missing fields
       content:
         application/json:
           schema:
@@ -200,8 +188,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request / Missing fields
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    TooManyRequests:
+      description: Too many requests / Rate limited
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Project not found
       content:
         application/json:
           schema:
