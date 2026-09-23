@@ -1,0 +1,31 @@
+# Front Door AI Index — langai — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: langai
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: lang.ai
+  final_host: capacity.com
+  ownership: own
+  owner: langai
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 29
+  host_score: 29
+  density: 37.52
+  words: 773
+  tiers:
+    agentic: 10
+    core: 19
+    model: 0
+  ambiguous: 27
+  top_terms:
+    agent: 19
+    AI: 18
+    AI agent: 8
+    automation: 4
+    intelligence: 4
+    conversational AI: 2
+    LLMs: 1

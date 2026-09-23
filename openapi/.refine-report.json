@@ -1,8 +1,7 @@
 {
   "provider": "langai",
   "sources": [
-    "langai-documents-api-openapi.yml",
-    "langai-projects-api-openapi.yml"
+    "_ae-authored/langai-api-openapi.yml"
   ],
   "outputs": [
     "langai-documents-api-openapi.yml",
@@ -12,9 +11,12 @@
   "errors": [],
   "warnings": [],
   "notes": [
-    "langai-documents-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
-    "langai-projects-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "sourced from openapi/_original/ (0 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "langai-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
     "apis.yml register: already-registered"
   ],
-  "skipped": []
+  "skipped": [
+    "langai-documents-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "langai-projects-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
