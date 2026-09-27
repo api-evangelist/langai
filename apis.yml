@@ -61,10 +61,10 @@ modified: '2026-08-14'
 tags:
 - Company
 - Artificial Intelligence
-- Machine-Learning
+- Machine Learning
 - Natural Language Processing
 - Conversation Intelligence
-- Customer-Support
+- Customer Support
 - Text Classification
 - Analytics
 - Customer Experience
@@ -78,6 +78,8 @@ tags_raw:
 - Text Classification
 - Analytics
 - Customer Experience
+- Machine-Learning
+- Customer-Support
 apis:
 - aid: langai:langai-documents-api
   name: Lang.ai Documents API
