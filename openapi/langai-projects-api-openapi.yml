@@ -136,16 +136,34 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    ProjectWithTags:
-      allOf:
-      - $ref: '#/components/schemas/Project'
-      - type: object
-        properties:
-          tags:
-            type: array
-            description: An array of tags.
-            items:
-              $ref: '#/components/schemas/Tag'
+    ProjectCreated:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the project.
+    Error:
+      type: object
+      description: JSON is returned by all API responses, including errors. Lang.ai documents the HTTP status codes but does not publish a field-level error envelope schema.
+      additionalProperties: true
+    Tag:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the tag.
+        name:
+          type: string
+          description: The name of the tag.
+        createdAt:
+          type: string
+          description: The creation date of the tag.
+        updatedAt:
+          type: string
+          description: The last update date of the tag.
+        isDraft:
+          type: boolean
+          description: Whether or not the tag is draft.
     Project:
       type: object
       properties:
@@ -191,41 +209,17 @@ components:
           description: The list of team ids that will have access to the project.
           items:
             type: string
-    Tag:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of the tag.
-        name:
-          type: string
-          description: The name of the tag.
-        createdAt:
-          type: string
-          description: The creation date of the tag.
-        updatedAt:
-          type: string
-          description: The last update date of the tag.
-        isDraft:
-          type: boolean
-          description: Whether or not the tag is draft.
-    ProjectCreated:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The id of the project.
-    Error:
-      type: object
-      description: JSON is returned by all API responses, including errors. Lang.ai documents the HTTP status codes but does not publish a field-level error envelope schema.
-      additionalProperties: true
+    ProjectWithTags:
+      allOf:
+      - $ref: '#/components/schemas/Project'
+      - type: object
+        properties:
+          tags:
+            type: array
+            description: An array of tags.
+            items:
+              $ref: '#/components/schemas/Tag'
   responses:
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     TooManyRequests:
       description: Too many requests / Rate limited
       content:
@@ -238,14 +232,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Project not found
+    InternalServerError:
+      description: Internal server error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Internal server error
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Project not found
       content:
         application/json:
           schema:

@@ -139,6 +139,10 @@ components:
         id:
           type: string
           description: ID of the document to save. If a document with the same ID already exists, it will be overwritten.
+    Error:
+      type: object
+      description: JSON is returned by all API responses, including errors. Lang.ai documents the HTTP status codes but does not publish a field-level error envelope schema.
+      additionalProperties: true
     AnalyzeRequest:
       type: object
       required:
@@ -171,19 +175,9 @@ components:
           description: An array of features. The sign ">" indicates a second-level feature.
           items:
             type: string
-    Error:
-      type: object
-      description: JSON is returned by all API responses, including errors. Lang.ai documents the HTTP status codes but does not publish a field-level error envelope schema.
-      additionalProperties: true
   responses:
     TooManyRequests:
       description: Too many requests / Rate limited
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
       content:
         application/json:
           schema:
@@ -194,14 +188,20 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Project not found
+    InternalServerError:
+      description: Internal server error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    InternalServerError:
-      description: Internal server error
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Project not found
       content:
         application/json:
           schema:
