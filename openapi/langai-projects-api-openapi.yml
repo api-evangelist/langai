@@ -136,34 +136,10 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    ProjectCreated:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The id of the project.
     Error:
       type: object
       description: JSON is returned by all API responses, including errors. Lang.ai documents the HTTP status codes but does not publish a field-level error envelope schema.
       additionalProperties: true
-    Tag:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The ID of the tag.
-        name:
-          type: string
-          description: The name of the tag.
-        createdAt:
-          type: string
-          description: The creation date of the tag.
-        updatedAt:
-          type: string
-          description: The last update date of the tag.
-        isDraft:
-          type: boolean
-          description: Whether or not the tag is draft.
     Project:
       type: object
       properties:
@@ -183,6 +159,34 @@ components:
         createdAt:
           type: string
           description: The creation date of the project.
+    ProjectWithTags:
+      allOf:
+      - $ref: '#/components/schemas/Project'
+      - type: object
+        properties:
+          tags:
+            type: array
+            description: An array of tags.
+            items:
+              $ref: '#/components/schemas/Tag'
+    Tag:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The ID of the tag.
+        name:
+          type: string
+          description: The name of the tag.
+        createdAt:
+          type: string
+          description: The creation date of the tag.
+        updatedAt:
+          type: string
+          description: The last update date of the tag.
+        isDraft:
+          type: boolean
+          description: Whether or not the tag is draft.
     ProjectMetadata:
       type: object
       required:
@@ -209,25 +213,21 @@ components:
           description: The list of team ids that will have access to the project.
           items:
             type: string
-    ProjectWithTags:
-      allOf:
-      - $ref: '#/components/schemas/Project'
-      - type: object
-        properties:
-          tags:
-            type: array
-            description: An array of tags.
-            items:
-              $ref: '#/components/schemas/Tag'
+    ProjectCreated:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The id of the project.
   responses:
-    TooManyRequests:
-      description: Too many requests / Rate limited
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request / Missing fields
+    TooManyRequests:
+      description: Too many requests / Rate limited
       content:
         application/json:
           schema:
@@ -238,14 +238,14 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Unauthorized
+    NotFound:
+      description: Project not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Project not found
+    BadRequest:
+      description: Bad request / Missing fields
       content:
         application/json:
           schema:
