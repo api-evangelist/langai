@@ -26,6 +26,23 @@ edges:
     year: '2018'
   detected_by: sweep-accelerator-portfolios.py
   first_seen: '2026-10-21'
+- partner_name: Intercom (own)
+  partner: intercom
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://www.intercom.com/app-store/?app_package_code=lang-ai-us-jft0
+  mirror_of: intercom/integrations/intercom-integration-edges.yml
+  apps:
+  - Lang.ai Support Automation
+  listing_count: 1
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Analytics
 generated: '2026-10-21'
 method: searched
 source:
@@ -40,3 +57,4 @@ checked:
 - https://www.antler.co/portfolio
 - https://www.techstars.com/portfolio
 - https://www.ycombinator.com/companies
+- intercom/integrations/intercom-integration-edges.yml
