@@ -1,0 +1,122 @@
+# Lang.ai
+
+<!-- API-EVANGELIST-PROVENANCE:BEGIN -->
+> ### About this repository
+>
+> **This is not our API.** This repository is an independent, third-party profile of a company's
+> **publicly available** API surface, maintained by [API Evangelist](https://apievangelist.com).
+> API Evangelist does not operate, host, resell, or support this company's APIs, and is not
+> affiliated with or endorsed by the company unless stated on the profile.
+>
+> **Where the information came from.** Everything here is assembled from material a member of the
+> public can reach with a browser and no credentials — the company's own website, developer portal
+> and documentation, the specifications it publishes for public use (OpenAPI, AsyncAPI, JSON Schema,
+> `apis.json`, `llms.txt` and similar), its public repositories, and its public status, pricing and
+> changelog pages. **Nothing here is obtained by breaching a system, defeating an access control, or
+> using credentials of any kind.**
+>
+> **The rating is an independent assessment.** The Kin Score and Agent Readiness rating are
+> independently calculated scores of a company's *public* API artifacts, produced by API Evangelist
+> against a published rubric. They are not certifications, endorsements, security assessments, or
+> audits, and they score published artifacts — not the quality, safety, or security of the software.
+>
+> **Corrections, re-scores, and removal are free.** No partnership, contract, or purchase is
+> required, and you do not need to justify the request.
+>
+> - **Something wrong?** Open an issue on this repository, or email
+>   [info@apievangelist.com](mailto:info@apievangelist.com).
+> - **Published something new?** Ask for a re-score and we will re-run the rating.
+> - **Want the listing taken down?** Say so and we will honor it. The profile is reduced to your
+>   company name, a factual description, and a link to your own site, and the company is recorded as
+>   **unrated** — never scored zero for having asked.
+>
+> **Response times.** Acknowledgement within **one business day**; removal or restriction within
+> **two business days**; corrections and re-scores within **five business days**.
+>
+> **Not from the company, and here with a question?** You are welcome here — we would rather be the
+> front line and point you the right way than have a good report go nowhere. What this repository
+> can answer is narrow, though, so it is worth knowing who you are actually looking for:
+>
+> - **A question about how the API works, an account, billing, or a bug in the service** — that is
+>   the company's own support, not us. We profile this API; we do not operate it and cannot see
+>   your account.
+> - **A bug in an open-source project we only catalog** — file it on that project's own repository.
+>   This has happened with a real and correct bug report that reached us instead of the people who
+>   could fix it, which helped nobody.
+> - **Anything about this listing itself** — the description, the tags, the rating, a missing or
+>   wrong artifact — is ours. Open an issue here.
+> - **Not sure, or something general about API Evangelist or APIs.io** — open an issue on the
+>   [APIs.io Inbox](https://github.com/api-search/inbox) and we will route it.
+>
+> **This repository contains no software, and we will never ask you to download anything.** There is
+> no build, release, installer, or binary here — only text and machine-readable API descriptions, so
+> there is nothing here that can be "corrupt" or need "repairing". Any issue, comment, or email
+> claiming otherwise and offering a download link is not from us and is hostile. Do not follow the
+> link; it is a lure. Report it to GitHub and, if you like, tell us at
+> [info@apievangelist.com](mailto:info@apievangelist.com) so we can take it down.
+>
+> **On a security or compliance team?** Email
+> [info@apievangelist.com](mailto:info@apievangelist.com) with *security* in the subject line and
+> you will get a person, not a form. We will tell you exactly which public URLs this profile was
+> built from so your team can see the same surface we did, and we will take the listing down on
+> request while you work through it.
+>
+> Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
+<!-- API-EVANGELIST-PROVENANCE:END -->
+
+Lang.ai is a conversation-intelligence platform that turns unstructured customer
+interactions — support tickets, chatbot messages, emails — into structured intents,
+features and tags. Its unsupervised algorithm ingests a dataset of customer text,
+automatically extracts the intents and features it finds, and lets teams group those into
+tags that form a custom classifier for any language, industry or business case. A small
+REST API then applies that classifier in real time.
+
+**Lang.ai is now part of [Capacity](https://capacity.com/lang/).** `lang.ai` redirects to
+Capacity's landing page, but the [API reference](https://docs.lang.ai/), the
+[help center](https://help.lang.ai/) and the [GitHub organization](https://github.com/lang-ai)
+remain live. Commercial, legal, status and compliance properties are Capacity's. Treat the
+Lang.ai API as a legacy/maintenance surface for existing tenants.
+
+Backed by: 500 Global
+
+## The API
+
+Base URL is per tenant — `https://{company}.lang.ai/api/v1`, where `{company}` is the
+customer's own instance subdomain. Authentication is a single bearer API token issued from
+the Settings section of the instance; generating a new token invalidates the previous one.
+
+| Operation | Method | Path | Purpose |
+|---|---|---|---|
+| `createProject` | POST | `/project` | Create a project from a CSV dataset (`multipart/related`, RFC 2387) |
+| `listProjects` | GET | `/projects` | List projects with status, id, name, createdAt |
+| `getProjectTags` | GET | `/projects/{projectId}` | Return a project and its tags |
+| `analyzeDocument` | POST | `/analyze` | Classify text, returning tags and intents (not persisted) |
+| `saveDocument` | POST | `/documents` | Save a document with metadata, returning its classification |
+
+Lang.ai publishes no machine-readable specification — the OpenAPI in this repo was
+generated by the API Evangelist enrichment pipeline from the published reference.
+
+## Artifacts
+
+| Artifact | Path | Method |
+|---|---|---|
+| OpenAPI 3.0.3 | `openapi/langai-api-openapi.yml` | generated from docs |
+| Overlay | `overlays/langai-api-overlay.yaml` | generated |
+| Authentication | `authentication/langai-authentication.yml` | derived |
+| Conventions | `conventions/langai-conventions.yml` | searched |
+| Error catalog | `errors/langai-problem-types.yml` | searched |
+| Lifecycle | `lifecycle/langai-lifecycle.yml` | searched |
+| Conformance | `conformance/langai-conformance.yml` | derived |
+| Data model | `data-model/langai-data-model.yml` | derived |
+| Agent skills | `skills/` | generated |
+| MCP (candidate) | `mcp/langai-mcp.yml` | derived |
+| llms.txt | `llms/langai-llms.txt` | generated |
+| Packages | `packages/langai-packages.yml` | searched — none found |
+| Well-known | `well-known/langai-well-known.yml` | searched — none served |
+| Domain security | `security/langai-domain-security.yml` | probed |
+| Vulnerability disclosure | `security/langai-vulnerability-disclosure.yml` | probed — contact only |
+| Trust center | `security/langai-trust-center.yml` | searched (Capacity) |
+
+Not applicable / not published: AsyncAPI or webhooks (no event surface), OAuth scopes
+(static bearer token, no OAuth), sandbox, CLI, embedded components, changelog, gRPC,
+decline codes.
